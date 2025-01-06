@@ -1,0 +1,24 @@
+{
+  "name": "express-mongodb-crud",
+  "version": "1.0.0",
+  "description": "Basic CRUD with Express and MongoDB",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js",
+    "server": "nodemon src/index.js",
+    "client": "cd client && npm run dev",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^8.0.0",
+    "dotenv": "^16.3.1",
+    "cors": "^2.8.5",
+    "concurrently": "^8.2.2",
+    "express-rate-limit": "^7.1.4"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
