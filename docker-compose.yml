@@ -13,13 +13,13 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "3000:3000"
+      - "3001:3001"
     depends_on:
       - mongodb
     environment:
       - MONGODB_URI=mongodb://mongodb:27017/crud_demo
       - NODE_ENV=production
-      - PORT=3000
+      - PORT=3001
       - API_VERSION=v1
       - RATE_LIMIT_WINDOW_MS=900000
       - RATE_LIMIT_MAX=100
