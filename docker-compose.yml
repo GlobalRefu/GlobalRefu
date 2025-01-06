@@ -1,29 +1,25 @@
 version: '3.8'
 
 services:
-  mongodb:
-    image: mongo:latest
-    ports:
-      - "27017:27017"
-    volumes:
-      - mongodb_data:/data/db
-
   backend:
     build:
       context: .
       dockerfile: Dockerfile
     ports:
       - "3001:3001"
-    depends_on:
-      - mongodb
     environment:
-      - MONGODB_URI=mongodb://mongodb:27017/crud_demo
-      - NODE_ENV=production
+      - MONGODB_URI=mongodb://GlobalRefuge_gamemelted:fda14c9db5d3ecca972db4850c64e8aa06b9da6a@v-a6r.h.filess.io:27018/GlobalRefuge_gamemelted
+      - NODE_ENV=development
       - PORT=3001
       - API_VERSION=v1
       - RATE_LIMIT_WINDOW_MS=900000
       - RATE_LIMIT_MAX=100
-      - CLIENT_URL=http://localhost:5173
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3001/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
   frontend:
     build:
@@ -33,6 +29,6 @@ services:
       - "5173:5173"
     depends_on:
       - backend
-
-volumes:
-  mongodb_data:
+    environment:
+      - VITE_API_URL=http://localhost:3001/v1
+    restart: unless-stopped
